@@ -1,0 +1,40 @@
+<div class="container">
+    <div>
+    <h2>Ajouter un Jouer :</h2>
+    </div>
+    <form >
+        <div class="col-sm-2 col-md-2 col-lg-2">
+        <label >ID Jouer</label>
+        <input type="text" [(ngModel)]="newJouer.idJouer"
+        name="idProduit" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4" >
+        <label >Nom Jouer</label>
+        <input type="text"[(ngModel)]= "newJouer.nomJouer"
+        name="nomProduit" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+        <label >Prix Jouer</label>
+        <input type="number" [(ngModel)]= "newJouer.prixJouer"
+        name="prixProduit" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+        <label >Date contrat</label>
+        <input type="date" [(ngModel)]= "newJouer.dateContrat"
+        name="dateCreation" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Equipe</label>
+            <select class="form-control form-control-lg" id="idEquipe" name="idEquipe"
+            [(ngModel)]="newIdEquipe">
+             <option *ngFor="let equipe of equipes" [value]="equipe.idEquipe" >
+             {{equipe.nomEquipe}}
+            </option>
+            </select>
+            </div>
+        <div class="mt-2">
+        <button type="submit" (click)="addJouer()"class="btn btn-success">Ajouter</button>
+        </div>
+    
+        </form>
+        </div>

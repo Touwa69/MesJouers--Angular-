@@ -1,0 +1,41 @@
+<div class="container">
+    <div>
+    <h2>Modifier un Jouer :</h2>
+    </div>
+    <form >
+    <div class="col-sm-2 col-md-2 col-lg-2">
+    <label >ID Jouer</label>
+    <input readonly type="text" [(ngModel)]="currentJouer.idJouer"
+    name="idProduit" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4" >
+    <label >Nom Jouer</label>
+    <input type="text"[(ngModel)]= "currentJouer.nomJouer"
+    name="nomProduit" class="form-control">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+    <label >Prix Jouer</label>
+    <input type="number" [(ngModel)]= "currentJouer.prixJouer"
+    name="prixProduit" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <label >Date contrat</label>
+<input type="date" [ngModel]="currentJouer.dateContrat | date: 'yyyy-MM-dd'"
+(ngModelChange)=" currentJouer.dateContrat= $event" name="dateContrat"
+ class="form-control">
+</div>
+
+<div class="col-sm-4 col-md-4 col-lg-4">
+    <select class="form-control form-control-lg" id="idEquipe" name="idEquipe"
+    [(ngModel)]="updatedEquipeId">
+    <option *ngFor="let equipe of equipes" [value]="equipe.idEquipe" >
+    {{equipe.nomEquipe}}
+    </option>
+    </select>
+    </div>
+
+<div class="mt-2">
+<button type="submit" (click)="updateJouer()" class="btn btn-success">Modifer</button>
+</div>
+</form>
+</div>
