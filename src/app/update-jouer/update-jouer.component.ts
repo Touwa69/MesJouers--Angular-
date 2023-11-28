@@ -21,17 +21,41 @@ export class UpdateJouerComponent implements OnInit {
               private router: Router,
               private jouerService : JouerService) { }
 
-  updateJouer(){
-    this.currentJouer.equipe = this.jouerService.consulterEquipe(this.updatedEquipeId);
+  /* updateJouer(){
+    //this.currentJouer.equipe = this.jouerService.consulterEquipe(this.updatedEquipeId);
     this.jouerService.updateJouer(this.currentJouer);
     this.router.navigate(['/jouers']);
+  } */
+
+  updateJouer(){
+    this.currentJouer.equipe = this.equipes.find(eq => eq.idEquipe == this.updatedEquipeId)!;
+    this.jouerService.updateJouer(this.currentJouer).subscribe(j => {
+      this.router.navigate(['jouers']);
+    });
   }
 
+
   ngOnInit(): void {
-    this.equipes = this.jouerService.listeEquipes();
-    this.currentJouer = this.jouerService.consulterJouer(this.activatedRoute.snapshot.params['id']);
+   // this.equipes = this.jouerService.listeEquipes();
+   // this.currentJouer = this.jouerService.consulterJouer(this.activatedRoute.snapshot.params['id']);
     //console.log(this.currentJouer);
+   // this.updatedEquipeId = this.currentJouer.equipe.idEquipe;
+
+   /* this.jouerService.consulterJouer(this.activatedRoute.snapshot.params['id']).subscribe(j => {
+    this.currentJouer = j;
+   }); */
+
+   this.jouerService.listeEquipes().subscribe(eqs => {
+    this.equipes = eqs;
+    console.log(eqs);
+   });
+
+   this.jouerService.consulterJouer(this.activatedRoute.snapshot.params['id']).subscribe(eq => {
+    this.currentJouer = eq;
     this.updatedEquipeId = this.currentJouer.equipe.idEquipe;
+   })
+
+
   }
 
 }

@@ -1,47 +1,73 @@
 import { Injectable } from '@angular/core';
 import { Jouer } from '../model/jouer.model';
 import { Equipe } from '../model/equipe.model';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders( {'Content-Type': 'application/json'} )
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class JouerService {
 
-  jouers : Jouer[]; //un tableau de Jouer
+  apiURL: string = 'http://localhost:8081/jouers/api';
+
+  jouers! : Jouer[]; //un tableau de Jouer
   jouer! :Jouer;
-  equipes : Equipe[];
+ // equipes : Equipe[];
 
-  constructor() {
+  constructor(private http: HttpClient) {
 
-    this.equipes = [ {idEquipe: 1, nomEquipe:"Real Madrid"},
+   /*  this.equipes = [ {idEquipe: 1, nomEquipe:"Real Madrid"},
                       {idEquipe:2, nomEquipe:"PSG"}];
-
-    this.jouers = [
+ */
+  /*   this.jouers = [
       {idJouer : 1, nomJouer : "Touwa Abbassi", prixJouer:888, dateContrat : new Date("2001/05/22"), equipe :{idEquipe:2, nomEquipe:"PSG"}},
       {idJouer : 2, nomJouer : "Rah Ghed", prixJouer:777, dateContrat : new Date("2004/07/17"), equipe :{idEquipe:2, nomEquipe:"PSG"}},
       {idJouer : 3, nomJouer : "Vinisus Jr", prixJouer:555, dateContrat : new Date("2020/07/22"), equipe :{idEquipe:1, nomEquipe:"Real Madrid"}}
-    ];
+    ]; */
   }
 
-  listeJouers(): Jouer[]{
+ /*  listeJouers(): Jouer[]{
     return this.jouers;
-  }
+  } */
 
-  ajouterJouer(jouer : Jouer){
+  listeJouers(): Observable<Jouer[]>{
+    return this.http.get<Jouer[]>(this.apiURL);
+    }
+
+ /*  ajouterJouer(jouer : Jouer){
     this.jouers.push(jouer);
-  }
+  } */
 
-  supprimerJouer(jouer : Jouer){
+  ajouterJouer( jouer: Jouer):Observable<Jouer>{
+    return this.http.post<Jouer>(this.apiURL, jouer, httpOptions);
+    }
+
+  /* supprimerJouer(jouer : Jouer){
     const index = this.jouers.indexOf(jouer, 0);
     if(index > -1){
       this.jouers.splice(index, 1);
     }
-  }
+  } */
 
-  consulterJouer(id: number){
+  supprimerJouer(id : number) {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.delete(url, httpOptions);
+    }
+
+ /*  consulterJouer(id: number){
     this.jouer = this.jouers.find(j => j.idJouer == id)!;
     return this.jouer;
-  }
+  } */
+
+  consulterJouer(id: number): Observable<Jouer> {
+    const url = `${this.apiURL}/${id}`;
+    return this.http.get<Jouer>(url);
+    }
 
   trierJouers(){
     this.jouers = this.jouers.sort( (n1, n2) => {
@@ -54,20 +80,30 @@ export class JouerService {
     });
   }
   
-  updateJouer(j: Jouer){
+/*  updateJouer(j: Jouer){
     this.supprimerJouer(j);
     this.ajouterJouer(j);
-    this.trierJouers();
+    this.trierJouers(); 
+
+  }*/
+
+  updateJouer(j : Jouer): Observable<Jouer> {
+    return this.http.put<Jouer>(this.apiURL, j, httpOptions);
   }
 
-  listeEquipes():Equipe[]{
+ /*  listeEquipes():Equipe[]{
     return this.equipes;
-  }
+  } */
 
+  listeEquipes():Observable<Equipe[]>{
+    return this.http.get<Equipe[]>(this.apiURL+"/equipes");
+    }
+
+  /*
   consulterEquipe(id:number):Equipe{
     return this.equipes.find(equipe => equipe.idEquipe == id)!;
   }
-
+ */
   
 
 

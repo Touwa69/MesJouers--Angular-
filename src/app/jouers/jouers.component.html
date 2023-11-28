@@ -9,7 +9,7 @@
     <td>{{jouer.nomJouer}}</td>
     <td>{{jouer.prixJouer}}</td>
     <td>{{jouer.dateContrat | date:'dd/MM/yyyy'}}</td>
-    <td>{{jouer.equipe.nomEquipe}}</td>
+    <td>{{jouer.equipe?.nomEquipe}}</td>
     <td><a class="btn btn-success" [routerLink]="['/updateJouer',jouer.idJouer]">Modifier</a></td>
     <td><a class="btn btn-danger" (click)="supprimerJouer(jouer)">Supprimer</a></td>
 

@@ -25,16 +25,29 @@ export class AddJouerComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.equipes = this.jouerService.listeEquipes();
+   // this.equipes = this.jouerService.listeEquipes();
+    this.jouerService.listeEquipes().subscribe(eqs => {
+    this.equipes = eqs;
+    console.log(eqs);
+    });
   }
 
 
-  addJouer(){
-    this.newEquipe = this.jouerService.consulterEquipe(this.newIdEquipe);
+  /* addJouer(){
+  //  this.newEquipe = this.jouerService.consulterEquipe(this.newIdEquipe);
     this.newJouer.equipe = this.newEquipe;
     this.jouerService.ajouterJouer(this.newJouer);
     this.router.navigate(['jouers']);
     
-  }
+  } */
+
+  addJouer(){
+    this.newJouer.equipe = this.equipes.find(eq => eq.idEquipe == this.newIdEquipe)!;
+    this.jouerService.ajouterJouer(this.newJouer)
+    .subscribe(jouer => {
+    console.log(jouer);
+    this.router.navigate(['jouers']);
+    });
+    }
 
 }

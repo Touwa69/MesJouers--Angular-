@@ -9,20 +9,44 @@ import { JouerService } from '../services/jouer.service';
 })
 export class JouersComponent implements OnInit {
 
-  jouers : Jouer[];
+  jouers! : Jouer[];
 
   constructor(private jouerService: JouerService) {
-    this.jouers = jouerService.listeJouers();
+    //this.jouers = jouerService.listeJouers();
   }
 
-  supprimerJouer(j: Jouer){
+  ngOnInit(): void {
+
+    this.chargerJouers();
+    /* this.jouerService.listeJouers().subscribe(j => {
+      console.log(j);
+      this.jouers = j;
+      }); */
+  }
+
+  /* supprimerJouer(j: Jouer){
     //console.log(j);
     let conf =confirm("Etes-vous sur ?");
     if (conf)
     this.jouerService.supprimerJouer(j);
-  }
+  } */
 
-  ngOnInit(): void {
-  }
+  chargerJouers(){
+    this.jouerService.listeJouers().subscribe(j => {
+    console.log(j);
+    this.jouers = j;
+    }); 
+    }
+
+
+  supprimerJouer(j: Jouer){
+    let conf = confirm("Etes-vous sûr ?");
+    if (conf)
+      this.jouerService.supprimerJouer(j.idJouer).subscribe(() => {
+      console.log("produit supprimé");
+      this.chargerJouers();
+  });
+
+}
 
 }
