@@ -1,0 +1,15 @@
+<form>
+    <div [hidden]="ajout">
+    <label>ID Equipe</label>
+    <input type="text" [(ngModel)]="equipe.idEquipe" name="idEquipe" class="form-control w-25">
+    </div>
+    <div>
+    <label>Nom Equipe </label>
+    <input type="text" [(ngModel)]="equipe.nomEquipe" name="nomEquipe" class="form-control" placeholder="Entrez un nom d'équipe...">
+    </div>
+    <div class="mt-2">
+        <button type="submit" [disabled]="!equipe.nomEquipe" class="btn btn-success"
+        (click)="saveEquipe()" >{{ajout ? 'Ajouter' : 'Modifier'}}
+        </button>
+    </div>
+</form>

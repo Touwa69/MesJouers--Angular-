@@ -46,7 +46,7 @@ export class UpdateJouerComponent implements OnInit {
    }); */
 
    this.jouerService.listeEquipes().subscribe(eqs => {
-    this.equipes = eqs;
+    this.equipes = eqs._embedded.equipes;
     console.log(eqs);
    });
 

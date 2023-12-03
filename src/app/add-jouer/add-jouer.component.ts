@@ -27,7 +27,7 @@ export class AddJouerComponent implements OnInit {
   ngOnInit(): void {
    // this.equipes = this.jouerService.listeEquipes();
     this.jouerService.listeEquipes().subscribe(eqs => {
-    this.equipes = eqs;
+    this.equipes = eqs._embedded.equipes;
     console.log(eqs);
     });
   }

@@ -8,6 +8,14 @@ import { JouersComponent } from './jouers/jouers.component';
 import { AddJouerComponent } from './add-jouer/add-jouer.component';
 import { FormsModule } from '@angular/forms';
 import { UpdateJouerComponent } from './update-jouer/update-jouer.component';
+import { RechercheParEquipeComponent } from './recherche-par-equipe/recherche-par-equipe.component';
+import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom.component';
+import { SearchFilterPipe } from './search-filter.pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ListeEquipesComponent } from './liste-equipes/liste-equipes.component';
+import { UpdateEquipeComponent } from './update-equipe/update-equipe.component';
+import { LoginComponent } from './login/login.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 //import { httpclientModule}
 
 @NgModule({
@@ -15,13 +23,21 @@ import { UpdateJouerComponent } from './update-jouer/update-jouer.component';
     AppComponent,
     JouersComponent,
     AddJouerComponent,
-    UpdateJouerComponent
+    UpdateJouerComponent,
+    RechercheParEquipeComponent,
+    RechercheParNomComponent,
+    SearchFilterPipe,
+    ListeEquipesComponent,
+    UpdateEquipeComponent,
+    LoginComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

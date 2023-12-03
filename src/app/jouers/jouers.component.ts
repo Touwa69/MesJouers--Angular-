@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Jouer } from '../model/jouer.model';
 import { JouerService } from '../services/jouer.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-jouers',
@@ -11,7 +12,7 @@ export class JouersComponent implements OnInit {
 
   jouers! : Jouer[];
 
-  constructor(private jouerService: JouerService) {
+  constructor(private jouerService: JouerService, public authService : AuthService) {
     //this.jouers = jouerService.listeJouers();
   }
 

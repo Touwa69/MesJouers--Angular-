@@ -3,6 +3,8 @@ import { Jouer } from '../model/jouer.model';
 import { Equipe } from '../model/equipe.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { apiURL } from '../config';
+import { CategorieWrapper } from '../model/categorieWrapped.model';
 
 const httpOptions = {
   headers: new HttpHeaders( {'Content-Type': 'application/json'} )
@@ -13,7 +15,8 @@ const httpOptions = {
 })
 export class JouerService {
 
-  apiURL: string = 'http://localhost:8081/jouers/api';
+  apiURLEquipe: string = 'http://localhost:8081/jouers/equipe';
+
 
   jouers! : Jouer[]; //un tableau de Jouer
   jouer! :Jouer;
@@ -36,7 +39,7 @@ export class JouerService {
   } */
 
   listeJouers(): Observable<Jouer[]>{
-    return this.http.get<Jouer[]>(this.apiURL);
+    return this.http.get<Jouer[]>(apiURL);
     }
 
  /*  ajouterJouer(jouer : Jouer){
@@ -44,7 +47,7 @@ export class JouerService {
   } */
 
   ajouterJouer( jouer: Jouer):Observable<Jouer>{
-    return this.http.post<Jouer>(this.apiURL, jouer, httpOptions);
+    return this.http.post<Jouer>(apiURL, jouer, httpOptions);
     }
 
   /* supprimerJouer(jouer : Jouer){
@@ -55,7 +58,7 @@ export class JouerService {
   } */
 
   supprimerJouer(id : number) {
-    const url = `${this.apiURL}/${id}`;
+    const url = `${apiURL}/${id}`;
     return this.http.delete(url, httpOptions);
     }
 
@@ -65,7 +68,7 @@ export class JouerService {
   } */
 
   consulterJouer(id: number): Observable<Jouer> {
-    const url = `${this.apiURL}/${id}`;
+    const url = `${apiURL}/${id}`;
     return this.http.get<Jouer>(url);
     }
 
@@ -88,16 +91,38 @@ export class JouerService {
   }*/
 
   updateJouer(j : Jouer): Observable<Jouer> {
-    return this.http.put<Jouer>(this.apiURL, j, httpOptions);
+    return this.http.put<Jouer>(apiURL, j, httpOptions);
   }
 
  /*  listeEquipes():Equipe[]{
     return this.equipes;
   } */
 
-  listeEquipes():Observable<Equipe[]>{
-    return this.http.get<Equipe[]>(this.apiURL+"/equipes");
+  /* listeEquipes():Observable<Equipe[]>{
+    return this.http.get<Equipe[]>(apiURL+"/equipes");
+    } */
+
+    listeEquipes():Observable<CategorieWrapper>{
+    return this.http.get<CategorieWrapper>(this.apiURLEquipe);
     }
+
+    rechercherParEquipe(idEquipe: number):Observable< Equipe[]> {
+      const url = `${apiURL}/jouerseq/${idEquipe}`;
+      return this.http.get<Equipe[]>(url);
+      }
+
+
+    rechercherParNom(nom: string):Observable< Jouer[]> {
+      const url = `${apiURL}/jouersByName/${nom}`;
+      return this.http.get<Jouer[]>(url);
+      }
+
+    ajouterEquipe( eq: Equipe):Observable<Equipe>{
+      return this.http.post<Equipe>(this.apiURLEquipe, eq, httpOptions);
+      }
+
+
+      
 
   /*
   consulterEquipe(id:number):Equipe{
